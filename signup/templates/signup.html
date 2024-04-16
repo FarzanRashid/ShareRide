@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{% static 'signup/css/style.css' %}">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+</head>
+<body>
+    <div class="signup-box">
+      <h1>Sign Up</h1>
+      <form method="post">
+      {% csrf_token %}
+      <label>First Name</label>
+      <input type="text" name="first_name" placeholder="" required>
+      <label>Last Name</label>
+      <input type="text" name="last_name" placeholder="" required>
+      <label>Email</label>
+      <input type="email" name="email" placeholder="" required>
+      <label>Password</label>
+      <input type="password" name="password" placeholder="" required>
+      <label>Confirm Password</label>
+      <input type="password" name="confirm_password" placeholder="" required>
+      <input type="submit" value="Submit">
+      </form>
+    </div>
+</body>
+</html>
