@@ -10,4 +10,4 @@ class Users(models.Model):
     password = models.CharField(max_length=128)
 
     class Meta:
-        db_model = 'Users'
+        db_table = 'Users'
