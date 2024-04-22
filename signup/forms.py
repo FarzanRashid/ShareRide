@@ -1,4 +1,5 @@
 from django import forms
+from .models import Users
 
 
 class SignUpForm(forms.Form):
@@ -12,9 +13,11 @@ class SignUpForm(forms.Form):
     def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get('password')
+        email = cleaned_data.get('email')
         confirm_password = cleaned_data.get('confirm_password')
-
-        if password and confirm_password and password != confirm_password:
+        if Users.objects.filter(email=email).exists():
+            raise forms.ValidationError("Email already exists!")
+        elif password and confirm_password and password != confirm_password:
             raise forms.ValidationError("Passwords do not match!")
 
         return cleaned_data
