@@ -27,7 +27,6 @@
       <label for="id_last_name">{{ form.last_name.label }}</label>
       {{ form.last_name }}
       <br>
-      <!-- Display errors for the email field -->
       {% if form.email.errors %}
       <p style="color: red; list-style: none; padding: 0;">
         {% for error in form.email.errors %}
@@ -35,12 +34,9 @@
         {% endfor %}
       </p>
       {% endif %}
-      <!-- End of email errors display -->
       <label for="id_email">{{ form.email.label }}</label>
       {{ form.email }}
       <br>
-
-      <!-- Display errors for the password field -->
       {% if form.password.errors %}
       <p style="color: red; list-style: none; padding: 0;">
         {% for error in form.password.errors %}
