@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import SignUpForm
 from .models import Users
 
@@ -13,8 +13,13 @@ def signup(request):
                 email=form.cleaned_data['email'],
                 password=form.cleaned_data['password']
             )
+            return redirect('success/')
         else:
             return render(request, 'signup.html', {'form': form, 'error': form.errors})
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
+
+
+def signup_success(request):
+    return render(request, "success.html")
