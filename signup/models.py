@@ -11,3 +11,4 @@ class Users(models.Model):
 
     class Meta:
         db_table = 'Users'
+        verbose_name_plural = "Users"
