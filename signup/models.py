@@ -9,6 +9,9 @@ class Users(models.Model):
     time = models.TimeField(auto_now_add=True)
     password = models.CharField(max_length=128)
 
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
     class Meta:
         db_table = 'Users'
         verbose_name_plural = "Users"
