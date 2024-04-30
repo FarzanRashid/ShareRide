@@ -41,8 +41,6 @@ def login_success(request):
             return render(request, 'login_success.html', {'email': email,
                                                           'first_name': first_name,
                                                           'last_name': last_name})
-        except jwt.ExpiredSignatureError:
-            return HttpResponseForbidden('Token expired')
         except jwt.DecodeError:
             return HttpResponseForbidden('Error decoding token')
         except jwt.InvalidTokenError:
