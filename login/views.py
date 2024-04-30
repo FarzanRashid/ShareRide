@@ -8,7 +8,9 @@ from signup.models import Users
 
 
 def login(request):
-    if request.method == 'POST':
+    if request.COOKIES.get('jwt'):
+        return redirect(reverse('login_success'))
+    elif request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
