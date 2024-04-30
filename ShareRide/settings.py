@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'signup',
+    'login',
 ]
 
 MIDDLEWARE = [
@@ -57,6 +58,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'signup/templates'),
+            os.path.join(BASE_DIR, 'login/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -124,6 +126,7 @@ USE_TZ = True
 
 STATICFILES_DIRS = [
     BASE_DIR / 'signup/static',
+    BASE_DIR / 'login/static'
 ]
 
 STATIC_URL = 'static/'
