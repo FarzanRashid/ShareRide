@@ -1,5 +1,6 @@
 from django import forms
 from signup.models import Users
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class LoginForm(forms.Form):
@@ -10,9 +11,9 @@ class LoginForm(forms.Form):
         cleaned_data = super().clean()
         password = cleaned_data.get('password')
         email = cleaned_data.get('email')
-        if Users.objects.filter(email=email).exists():
+        try:
             user = Users.objects.get(email=email)
             if user.password != password:
                 raise forms.ValidationError("Incorrect E-mail or password")
-        else:
+        except ObjectDoesNotExist:
             raise forms.ValidationError("Incorrect E-mail or password")
