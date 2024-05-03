@@ -1,11 +1,20 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login Successful</title>
+    <link rel="stylesheet" href="{% static 'login/css/login_success.css' %}">
+
 </head>
 <body>
-    <h1>Welcome, {{ first_name }} {{ last_name }}</h1>
-    <p>Your email address: {{ email }}</p>
+    <div class="container">
+        <h1>Welcome, {{ first_name }} {{ last_name }}</h1>
+        <p>Your email address: {{ email }}</p>
+        <form id="logout-form" action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="logout-button">Logout</button>
+        </form>
+    </div>
 </body>
 </html>
