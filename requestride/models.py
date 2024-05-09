@@ -8,6 +8,7 @@ class Requests(models.Model):
     time = models.TimeField()
     date = models.DateField(auto_now_add=True)
     user = models.ForeignKey('signup.Users', on_delete=models.CASCADE)
+    status = models.CharField(max_length=100, default='pending')
 
     class Meta:
         db_table = 'Requests'
