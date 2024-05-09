@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+<body>
+    <h1>Pending Requests</h1>
+    <ul>
+        {% for request in pending_requests %}
+            <li>{{ request.pickup }} to {{ request.destination }} - {{ request.time }}</li>
+        {% empty %}
+            <li>No pending requests</li>
+        {% endfor %}
+    </ul>
+
+    <h1>Finished Requests</h1>
+    <ul>
+        {% for request in finished_requests %}
+            <li>{{ request.pickup }} to {{ request.destination }} - {{ request.time }}</li>
+        {% empty %}
+            <li>No finished requests</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
