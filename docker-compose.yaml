@@ -3,6 +3,7 @@ version: '3.8'
 services:
   shareride:
     build: .
+    image: shareride:latest
     ports:
       - "8000:8000"
     depends_on:
