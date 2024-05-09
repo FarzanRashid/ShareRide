@@ -28,22 +28,3 @@ def login(request):
         form = LoginForm()
         return render(request, 'login.html', {'form': form})
 
-
-def login_success(request):
-    jwt_token = request.COOKIES.get('jwt')
-    if jwt_token:
-        try:
-            decoded_token = jwt.decode(jwt_token, settings.SECRET_KEY, algorithms=['HS256'])
-            email = decoded_token['email']
-            user = Users.objects.get(email=email)
-            first_name = user.first_name
-            last_name = user.last_name
-            return render(request, 'login_success.html', {'email': email,
-                                                          'first_name': first_name,
-                                                          'last_name': last_name})
-        except jwt.DecodeError:
-            return HttpResponseForbidden('Error decoding token')
-        except jwt.InvalidTokenError:
-            return HttpResponseForbidden('Invalid Token')
-    else:
-        return redirect('login')
