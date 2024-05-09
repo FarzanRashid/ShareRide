@@ -8,6 +8,7 @@ services:
     depends_on:
       db:
        condition: service_healthy
+    container_name: shareride-app
 
   db:
     image: postgres:alpine
@@ -23,6 +24,7 @@ services:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 3s
       retries: 5
+    container_name: shareride-db
 
 volumes:
   pg-data:
