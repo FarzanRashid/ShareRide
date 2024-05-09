@@ -18,14 +18,14 @@ def login(request):
                 settings.SECRET_KEY,
                 algorithm='HS256'
             ).decode('utf-8')
-            response = redirect(reverse('login_success'))
+            response = redirect(reverse('profile'))
             response.set_cookie('jwt', token, httponly=True)
             return response
         else:
             return render(request, 'login.html', {'form': form, 'error': form.errors})
     else:
         if request.COOKIES.get('jwt'):
-            return redirect(reverse('login_success'))
+            return redirect(reverse('profile'))
         form = LoginForm()
         return render(request, 'login.html', {'form': form})
 
