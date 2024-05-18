@@ -9,7 +9,7 @@
     <h1>Pending Requests</h1>
     <ul>
         {% for request in pending_requests %}
-            <li>{{ request.pickup }} to {{ request.destination }} - {{ request.time }}</li>
+            <li>{{ request.pickup }} to {{ request.destination }} - {{ request.time|time:"H:i" }}</li>
         {% empty %}
             <li>No pending requests</li>
         {% endfor %}
