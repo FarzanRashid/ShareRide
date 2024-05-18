@@ -8,7 +8,9 @@ services:
       - "8000:8000"
     depends_on:
       db:
-       condition: service_healthy
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
     container_name: shareride-app
 
   db:
@@ -22,10 +24,25 @@ services:
     volumes:
       - pg-data:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 3s
       retries: 5
     container_name: shareride-db
+
+  rabbitmq:
+    image: rabbitmq:latest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=password
+    healthcheck:
+      test: ["CMD-SHELL", "rabbitmqctl status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    container_name: shareride-rabbitmq
 
 volumes:
   pg-data:
