@@ -59,6 +59,21 @@ services:
       DATABASE_PASSWORD: 87654321it
       CELERY_BROKER_URL: amqp://user:password@rabbitmq:5672//
 
+  celery_beat:
+    build: .
+    command: celery -A ShareRide beat --loglevel=info
+    depends_on:
+      db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      DATABASE_HOST: db
+      DATABASE_NAME: shareride
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: 87654321it
+      CELERY_BROKER_URL: amqp://user:password@rabbitmq:5672//
+
 volumes:
   pg-data:
     driver: local
