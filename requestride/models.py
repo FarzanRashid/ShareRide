@@ -1,5 +1,4 @@
 from django.db import models
-from signup.models import Users
 
 
 class Requests(models.Model):
