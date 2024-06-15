@@ -6,7 +6,6 @@ def get_times():
     now = datetime.now()
     times = []
 
-    # Round to the next half hour or hour
     if now.minute < 30:
         next_half_hour = now.replace(minute=30, second=0, microsecond=0)
     else:
@@ -14,7 +13,6 @@ def get_times():
 
     current_time = next_half_hour
 
-    # Generate time slots until the end of the day
     end_of_day = now.replace(hour=23, minute=30, second=0, microsecond=0)
     while current_time <= end_of_day:
         time_str = current_time.strftime('%H:%M')
@@ -29,8 +27,11 @@ class LocationForm(forms.Form):
                  ('Banani', 'Banani'),
                  ('Gulshan', 'Gulshan'),
                  ]
-    times = [(f"{h:02}:{m:02}", f"{h:02}:{m:02}") for h in range(0, 24) for m in range(0, 60, 30)]
 
     pickup = forms.ChoiceField(choices=locations, label="Pickup")
     destination = forms.ChoiceField(choices=locations, label="Destination")
-    time = forms.ChoiceField(choices=times, label="Time")
+    time = forms.ChoiceField(choices=[], label="Time")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['time'].choices = get_times()
