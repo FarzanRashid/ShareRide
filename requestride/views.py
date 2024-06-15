@@ -1,5 +1,5 @@
 import jwt
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.conf import settings
 from django.http import HttpResponse
 from .forms import LocationForm
@@ -21,7 +21,7 @@ def ride_request(request):
                 time=form.cleaned_data['time'],
                 user=user,
             )
-            return HttpResponse("Request successfully created")
+            return redirect((reverse('home')))
         return HttpResponse("Request failed")
     else:
         if request.COOKIES.get('jwt'):
