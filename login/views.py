@@ -18,19 +18,19 @@ def login(request):
                 settings.SECRET_KEY,
                 algorithm='HS256'
             ).decode('utf-8')
-            response = redirect(reverse('profile'))
+            response = redirect(reverse('home'))
             response.set_cookie('jwt', token, httponly=True)
             return response
         else:
             return render(request, 'login.html', {'form': form, 'error': form.errors})
     else:
         if request.COOKIES.get('jwt'):
-            return redirect(reverse('profile'))
+            return redirect(reverse('home'))
         form = LoginForm()
         return render(request, 'login.html', {'form': form})
 
 
-def profile(request):
+def home(request):
     jwt_token = request.COOKIES.get('jwt')
     if jwt_token:
         try:
@@ -39,7 +39,7 @@ def profile(request):
             user = Users.objects.get(email=email)
             pending_requests = Requests.objects.filter(user=user, status='pending')
             finished_requests = Requests.objects.filter(user=user, status='finished')
-            return render(request, 'profile.html', {'pending_requests': pending_requests,
+            return render(request, 'home.html', {'pending_requests': pending_requests,
                                                     'finished_requests': finished_requests})
         except jwt.InvalidTokenError:
             return HttpResponseForbidden("Invalid token")
