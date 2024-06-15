@@ -1,4 +1,27 @@
 from django import forms
+from datetime import datetime, timedelta
+
+
+def get_times():
+    now = datetime.now()
+    times = []
+
+    # Round to the next half hour or hour
+    if now.minute < 30:
+        next_half_hour = now.replace(minute=30, second=0, microsecond=0)
+    else:
+        next_half_hour = (now.replace(minute=0, second=0, microsecond=0) + timedelta(hours=1))
+
+    current_time = next_half_hour
+
+    # Generate time slots until the end of the day
+    end_of_day = now.replace(hour=23, minute=30, second=0, microsecond=0)
+    while current_time <= end_of_day:
+        time_str = current_time.strftime('%H:%M')
+        times.append((time_str, time_str))
+        current_time += timedelta(minutes=30)
+
+    return times
 
 
 class LocationForm(forms.Form):
