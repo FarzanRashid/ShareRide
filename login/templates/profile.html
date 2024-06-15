@@ -17,7 +17,7 @@
             display: inline;
         }
         .logout-button button {
-            background-color: #f44336; /* Red */
+            background-color: #f44336;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -28,6 +28,14 @@
             margin: 4px 2px;
             cursor: pointer;
             border-radius: 12px;
+        }
+        .request-link {
+            font-size: 16px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .request-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -56,5 +64,7 @@
             <li>No finished requests</li>
         {% endfor %}
     </ul>
+
+    <a href="{% url 'request' %}" class="request-link">Make a ride request.</a>
 </body>
 </html>
