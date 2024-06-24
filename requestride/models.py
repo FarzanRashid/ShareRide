@@ -8,6 +8,8 @@ class Requests(models.Model):
     date = models.DateField(auto_now_add=True)
     user = models.ForeignKey('signup.Users', on_delete=models.CASCADE)
     status = models.CharField(max_length=100, default='pending')
+    matched_user = models.ForeignKey('signup.Users', null=True, blank=True,
+                                     on_delete=models.SET_NULL, related_name='matched_requests')
 
     class Meta:
         db_table = 'Requests'
