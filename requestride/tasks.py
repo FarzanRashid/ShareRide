@@ -7,31 +7,35 @@ from django.utils import timezone
 def check_requests():
     now = timezone.localtime(timezone.now()).time()
 
-    requests = Requests.objects.filter(
+    pending_requests = Requests.objects.filter(
         time__gte=now,
         status='pending',
     )
 
-    if not requests:
-        print("No requests found matching the criteria.")
+    if not pending_requests:
+        print("No pending requests found.")
         return
 
-    for request in requests:
-        print(f"Processing request: {request.pk} from {request.pickup} to {request.destination} at {request.time}")
+    for request in pending_requests:
+        print(
+            f"Processing request: {request.pk} from {request.pickup} to {request.destination} at {request.time}")
 
-        count = Requests.objects.filter(
+        matching_requests = Requests.objects.filter(
             pickup=request.pickup,
             destination=request.destination,
-            time=request.time
-        ).count()
+            time=request.time,
+            status='pending'
+        ).exclude(user=request.user)
 
-        print(f"Found {count} requests matching pickup: {request.pickup}, destination: {request.destination}, time: {request.time}")
+        if matching_requests.exists():
+            matched_request = matching_requests.first()
+            request.status = 'finished'
+            request.matched_user = matched_request.user
+            request.save()
 
-        if count >= 2:
-            updated_count = Requests.objects.filter(
-                pickup=request.pickup,
-                destination=request.destination,
-                time=request.time,
-                status='pending',
-            ).update(status="finished")
-            print(f"Updated status to 'finished' for {updated_count} requests")
+            matched_request.status = 'finished'
+            matched_request.matched_user = request.user
+            matched_request.save()
+
+            print(
+                f"Requests {request.pk} and {matched_request.pk} are matched and updated to 'finished' status.")
