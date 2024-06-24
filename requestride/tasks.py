@@ -1,6 +1,8 @@
 from celery import shared_task
 from .models import Requests
 from django.utils import timezone
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 @shared_task
@@ -39,3 +41,19 @@ def check_requests():
 
             print(
                 f"Requests {request.pk} and {matched_request.pk} are matched and updated to 'finished' status.")
+
+            send_mail(
+                subject='Your request has been matched!',
+                message=f'Your request from {request.pickup} to {request.destination} at {request.time} has been matched with another user. Their email is {matched_request.user.email}.',
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[request.user.email],
+                fail_silently=False,
+            )
+
+            send_mail(
+                subject='Your request has been matched!',
+                message=f'Your request from {matched_request.pickup} to {matched_request.destination} at {matched_request.time} has been matched with another user. Their email is {request.user.email}.',
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[matched_request.user.email],
+                fail_silently=False,
+            )
