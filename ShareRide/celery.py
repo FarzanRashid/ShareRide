@@ -16,4 +16,8 @@ app.conf.beat_schedule = {
         'task': 'requestride.tasks.check_requests',
         'schedule': crontab(minute='*'),
     },
+    'check_pending_requests_every_15_minutes': {
+        'task': 'requestride.tasks.check_old_pending_requests',
+        'schedule': crontab(minute='*/15'),
+    },
 }
