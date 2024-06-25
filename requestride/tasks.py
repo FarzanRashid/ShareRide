@@ -57,3 +57,27 @@ def check_requests():
                 recipient_list=[matched_request.user.email],
                 fail_silently=False,
             )
+
+
+@shared_task
+def check_old_pending_requests():
+    now = timezone.localtime(timezone.now())
+    old_pending_requests = Requests.objects.filter(
+        date__lt=now.date(),
+        status='pending'
+    ) | Requests.objects.filter(
+        date=now.date(),
+        time__lt=now.time(),
+        status='pending'
+    )
+    if not old_pending_requests.exists():
+        print("No old pending requests found.")
+        return
+
+    for request in old_pending_requests:
+        print(
+            f"Updating request: {request.pk} from {request.pickup} to {request.destination} at {request.date} {request.time} to 'not matched'"
+        )
+        request.status = 'not matched'
+        request.save()
+        print(f"Request {request.pk} status updated to 'not matched'.")
