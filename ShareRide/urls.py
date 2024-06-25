@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import logout
+from .views import logout, cancel_request
 from login.views import home
 
 urlpatterns = [
@@ -26,4 +26,5 @@ urlpatterns = [
     path('logout/', logout, name='logout'),
     path('request/', include('requestride.urls')),
     path('home/', home, name='home'),
+    path('cancel_request/<int:request_id>/', cancel_request, name='cancel_request'),
 ]
