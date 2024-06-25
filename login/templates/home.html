@@ -50,9 +50,13 @@
     <h1>Pending Requests</h1>
     <ul>
         {% for request in pending_requests %}
-            <li>{{ request.pickup }} to {{ request.destination }} - {{ request.time|time:"H:i" }}</li>
-        {% empty %}
-            <li>No pending requests</li>
+        <li>
+            {{ request.pickup }} to {{ request.destination }} at {{ request.time }}
+            <form action="{% url 'cancel_request' request.id %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">Cancel Request</button>
+            </form>
+        </li>
         {% endfor %}
     </ul>
 
