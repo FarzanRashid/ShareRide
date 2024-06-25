@@ -25,6 +25,14 @@ def ride_request(request):
         return HttpResponse("Request failed")
     else:
         if request.COOKIES.get('jwt'):
+            jwt_token = request.COOKIES.get('jwt')
+            decoded_token = jwt.decode(jwt_token, settings.SECRET_KEY, algorithms=['HS256'])
+            email = decoded_token['email']
+            user = Users.objects.get(email=email)
+            pending_request = Requests.objects.filter(user=user, status='pending').exists()
+            if pending_request:
+                return render(request, 'pending_request.html')
+
             form = LocationForm()
             return render(request, 'request.html', {'form': form})
         return redirect('login')
