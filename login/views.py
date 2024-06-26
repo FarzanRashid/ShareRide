@@ -39,20 +39,19 @@ def home(request):
             user = Users.objects.get(email=email)
             pending_requests = Requests.objects.filter(user=user, status='pending')
 
-            finished_requests = Requests.objects.filter(user=user,
-                                                        status='finished').select_related(
-                'matched_user')
-            finished_requests_with_emails = [
+            non_pending_requests = Requests.objects.filter(user=user).exclude(status='pending').select_related('matched_user')
+
+            non_pending_requests_with_emails = [
                 {
                     'request': req,
                     'matched_user_email': req.matched_user.email if req.matched_user else 'No matched user'
                 }
-                for req in finished_requests
+                for req in non_pending_requests
             ]
 
             return render(request, 'home.html', {
                 'pending_requests': pending_requests,
-                'finished_requests_with_emails': finished_requests_with_emails,
+                'non_pending_requests_with_emails': non_pending_requests_with_emails,
             })
         except jwt.InvalidTokenError:
             return HttpResponseForbidden("Invalid token")
