@@ -53,19 +53,26 @@
         <li>
             {{ request.pickup }} to {{ request.destination }} at {{ request.time }}
             <form action="{% url 'cancel_request' request.id %}" method="post" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit">Cancel Request</button>
+                {% csrf_token %}
+                <button type="submit">Cancel Request</button>
             </form>
         </li>
         {% endfor %}
     </ul>
 
-    <h1>Finished Requests</h1>
+    <h1>Past Requests</h1>
     <ul>
-        {% for item in finished_requests_with_emails %}
-            <li>{{ item.request.pickup }} to {{ item.request.destination }} - {{ item.request.time }} - Request status: {{ item.request.status }} - Matched with: {{ item.request.matched_user.email }} -  Date: {{ item.request.date }}</li>
+        {% for item in non_pending_requests_with_emails %}
+            <li>
+                {{ item.request.pickup }} to {{ item.request.destination }} at {{ item.request.time }} -
+                Request status: {{ item.request.status }} -
+                {% if item.request.status == 'finished' %}
+                    Matched with: {{ item.matched_user_email }}
+                {% endif %}
+                - Date: {{ item.request.date }}
+            </li>
         {% empty %}
-            <li>No finished requests</li>
+            <li>No past requests</li>
         {% endfor %}
     </ul>
 
