@@ -146,5 +146,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'promit666@gmail.com'
-EMAIL_HOST_PASSWORD = 'bwdy zlxw kdmw fvoc'
-DEFAULT_FROM_EMAIL = 'your-email@gmail.com'
+EMAIL_HOST_PASSWORD = 'eonj pkar kzcp rrqz'
+DEFAULT_FROM_EMAIL = 'promit666@gmail.com'
