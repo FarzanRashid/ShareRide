@@ -39,7 +39,7 @@ def home(request):
             user = Users.objects.get(email=email)
             pending_requests = Requests.objects.filter(user=user, status='pending')
 
-            non_pending_requests = Requests.objects.filter(user=user).exclude(status='pending').select_related('matched_user')
+            non_pending_requests = Requests.objects.filter(user=user).exclude(status='pending').select_related('matched_user').order_by('-date')
 
             non_pending_requests_with_emails = [
                 {
