@@ -48,17 +48,21 @@
     </div>
 
     <h1>Pending Requests</h1>
-    <ul>
-        {% for request in pending_requests %}
-        <li>
-            {{ request.pickup }} to {{ request.destination }} at {{ request.time }}
-            <form action="{% url 'cancel_request' request.id %}" method="post" style="display:inline;">
-                {% csrf_token %}
-                <button type="submit">Cancel Request</button>
-            </form>
-        </li>
-        {% endfor %}
-    </ul>
+    {% if pending_requests %}
+        <ul>
+            {% for request in pending_requests %}
+            <li>
+                {{ request.pickup }} to {{ request.destination }} at {{ request.time }}
+                <form action="{% url 'cancel_request' request.id %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">Cancel Request</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h2>No pending requests.</h2>
+    {% endif %}
 
     <h1>Past Requests</h1>
     <ul>
