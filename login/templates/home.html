@@ -29,14 +29,6 @@
             cursor: pointer;
             border-radius: 12px;
         }
-        .request-link {
-            font-size: 16px;
-            color: #007BFF;
-            text-decoration: none;
-        }
-        .request-link:hover {
-            text-decoration: underline;
-        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -48,6 +40,23 @@
         th, td {
             padding: 10px;
             text-align: left;
+        }
+        .request-button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 12px;
+        }
+        .request-button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -112,6 +121,6 @@
         </tbody>
     </table>
 
-    <a href="{% url 'request' %}" class="request-link">Make a ride request.</a>
+    <a href="{% url 'request' %}" class="request-button">Request a Ride</a>
 </body>
 </html>
