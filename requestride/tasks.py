@@ -31,16 +31,17 @@ def check_requests():
 
         if matching_requests.exists():
             matched_request = matching_requests.first()
-            request.status = 'finished'
+            request.status = 'Matched'
             request.matched_user = matched_request.user
             request.save()
 
-            matched_request.status = 'finished'
+            matched_request.status = 'Matched'
             matched_request.matched_user = request.user
             matched_request.save()
 
             print(
-                f"Requests {request.pk} and {matched_request.pk} are matched and updated to 'finished' status.")
+                f"Requests {request.pk} and {matched_request.pk} are matched and updated to "
+                f"'Matched' status.")
 
             send_mail(
                 subject='Your request has been matched!',

@@ -96,7 +96,7 @@
                 <td>{{ item.request.time }}</td>
                 <td>{{ item.request.status }}</td>
                 <td>
-                    {% if item.request.status == 'finished' %}
+                    {% if item.request.status == 'Matched' %}
                         {{ item.matched_user_email }}
                     {% else %}
                         No matched user
