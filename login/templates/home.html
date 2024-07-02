@@ -37,6 +37,18 @@
         .request-link:hover {
             text-decoration: underline;
         }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -65,20 +77,40 @@
     {% endif %}
 
     <h1>Past Requests</h1>
-    <ul>
-        {% for item in non_pending_requests_with_emails %}
-            <li>
-                {{ item.request.pickup }} to {{ item.request.destination }} at {{ item.request.time }} -
-                Request status: {{ item.request.status }} -
-                {% if item.request.status == 'finished' %}
-                    Matched with: {{ item.matched_user_email }}
-                {% endif %}
-                - Date: {{ item.request.date }}
-            </li>
-        {% empty %}
-            <li>No past requests</li>
-        {% endfor %}
-    </ul>
+    <table>
+        <thead>
+            <tr>
+                <th>Pickup</th>
+                <th>Destination</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Matched With</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in non_pending_requests_with_emails %}
+            <tr>
+                <td>{{ item.request.pickup }}</td>
+                <td>{{ item.request.destination }}</td>
+                <td>{{ item.request.time }}</td>
+                <td>{{ item.request.status }}</td>
+                <td>
+                    {% if item.request.status == 'finished' %}
+                        {{ item.matched_user_email }}
+                    {% else %}
+                        No matched user
+                    {% endif %}
+                </td>
+                <td>{{ item.request.date }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No past requests</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
     <a href="{% url 'request' %}" class="request-link">Make a ride request.</a>
 </body>
