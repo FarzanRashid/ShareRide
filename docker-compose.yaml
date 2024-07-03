@@ -18,9 +18,9 @@ services:
     ports:
       - "5433:5432"
     environment:
-      - POSTGRES_DB=shareride
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=87654321it
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
       - pg-data:/var/lib/postgresql/data
     healthcheck:
@@ -35,8 +35,8 @@ services:
       - "5672:5672"
       - "15672:15672"
     environment:
-      - RABBITMQ_DEFAULT_USER=user
-      - RABBITMQ_DEFAULT_PASS=password
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
     healthcheck:
       test: ["CMD-SHELL", "rabbitmqctl status"]
       interval: 30s
@@ -53,11 +53,11 @@ services:
       rabbitmq:
         condition: service_healthy
     environment:
-      DATABASE_HOST: db
-      DATABASE_NAME: shareride
-      DATABASE_USER: postgres
-      DATABASE_PASSWORD: 87654321it
-      CELERY_BROKER_URL: amqp://user:password@rabbitmq:5672//
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      CELERY_BROKER_URL: amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@rabbitmq:5672//
 
   celery_beat:
     build: .
@@ -68,11 +68,11 @@ services:
       rabbitmq:
         condition: service_healthy
     environment:
-      DATABASE_HOST: db
-      DATABASE_NAME: shareride
-      DATABASE_USER: postgres
-      DATABASE_PASSWORD: 87654321it
-      CELERY_BROKER_URL: amqp://user:password@rabbitmq:5672//
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      CELERY_BROKER_URL: amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@rabbitmq:5672//
 
 volumes:
   pg-data:
