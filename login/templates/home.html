@@ -93,7 +93,6 @@
                 <th>Destination</th>
                 <th>Time</th>
                 <th>Status</th>
-                <th>Matched With</th>
                 <th>Date</th>
             </tr>
         </thead>
@@ -103,19 +102,18 @@
                 <td>{{ item.request.pickup }}</td>
                 <td>{{ item.request.destination }}</td>
                 <td>{{ item.request.time }}</td>
-                <td>{{ item.request.status }}</td>
                 <td>
                     {% if item.request.status == 'Matched' %}
-                        {{ item.matched_user_email }}
+                        Matched with {{ item.matched_user_email }}
                     {% else %}
-                        No matched user
+                        {{ item.request.status }}
                     {% endif %}
                 </td>
                 <td>{{ item.request.date }}</td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="6">No past requests</td>
+                <td colspan="5">No past requests</td>
             </tr>
             {% endfor %}
         </tbody>
