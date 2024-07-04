@@ -50,6 +50,7 @@ def home(request):
             ]
 
             return render(request, 'home.html', {
+                'first_name': user.first_name,
                 'pending_requests': pending_requests,
                 'non_pending_requests_with_emails': non_pending_requests_with_emails,
             })

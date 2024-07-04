@@ -29,6 +29,12 @@
             cursor: pointer;
             border-radius: 12px;
         }
+        .user-name {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -66,6 +72,10 @@
             {% csrf_token %}
             <button type="submit">Logout</button>
         </form>
+    </div>
+
+    <div class="user-name">
+        Welcome, {{ first_name }}!
     </div>
 
     <h1>Pending Requests</h1>
