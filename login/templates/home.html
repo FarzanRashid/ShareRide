@@ -96,38 +96,38 @@
     {% endif %}
 
     <h1>Past Requests</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Pickup</th>
-                <th>Destination</th>
-                <th>Time</th>
-                <th>Status</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in non_pending_requests_with_emails %}
-            <tr>
-                <td>{{ item.request.pickup }}</td>
-                <td>{{ item.request.destination }}</td>
-                <td>{{ item.request.time }}</td>
-                <td>
-                    {% if item.request.status == 'Matched' %}
-                        Matched with {{ item.matched_user_email }}
-                    {% else %}
-                        {{ item.request.status }}
-                    {% endif %}
-                </td>
-                <td>{{ item.request.date }}</td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="5">No past requests</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    {% if non_pending_requests_with_emails %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Pickup</th>
+                    <th>Destination</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in non_pending_requests_with_emails %}
+                <tr>
+                    <td>{{ item.request.pickup }}</td>
+                    <td>{{ item.request.destination }}</td>
+                    <td>{{ item.request.time }}</td>
+                    <td>
+                        {% if item.request.status == 'Matched' %}
+                            Matched with {{ item.matched_user_email }}
+                        {% else %}
+                            {{ item.request.status }}
+                        {% endif %}
+                    </td>
+                    <td>{{ item.request.date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h2>No past requests.</h2>
+    {% endif %}
 
     <a href="{% url 'request' %}" class="request-button">Request a Ride</a>
 </body>
