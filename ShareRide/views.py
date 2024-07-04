@@ -23,7 +23,7 @@ def cancel_request(request, request_id):
             user = Users.objects.get(email=email)
 
             request_to_cancel = get_object_or_404(Requests, id=request_id, user=user, status='pending')
-            request_to_cancel.status = 'cancelled'
+            request_to_cancel.status = 'Cancelled'
             request_to_cancel.save()
 
             return redirect(reverse('home'))
