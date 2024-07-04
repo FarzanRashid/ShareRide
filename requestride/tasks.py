@@ -77,8 +77,7 @@ def check_old_pending_requests():
 
     for request in old_pending_requests:
         print(
-            f"Updating request: {request.pk} from {request.pickup} to {request.destination} at {request.date} {request.time} to 'not matched'"
-        )
-        request.status = 'not matched'
+            f"Updating request: {request.pk} from {request.pickup} to {request.destination} at {request.date} {request.time} to 'Unmatched'")
+        request.status = 'Unmatched'
         request.save()
-        print(f"Request {request.pk} status updated to 'not matched'.")
+        print(f"Request {request.pk} status updated to 'Unmatched'.")
