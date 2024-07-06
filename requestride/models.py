@@ -10,6 +10,7 @@ class Requests(models.Model):
     status = models.CharField(max_length=100, default='pending')
     matched_user = models.ForeignKey('signup.Users', null=True, blank=True,
                                      on_delete=models.SET_NULL, related_name='matched_requests')
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = 'Requests'
