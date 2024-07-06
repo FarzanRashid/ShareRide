@@ -1,6 +1,13 @@
 # ShareRide
-ShareRide is a Django-based application where users can find another user based on their travel
-schedule. Users can submit a request to find a co-passenger who matches their travel plans.
+ShareRide is a Django application which matches  users based on their travel schedule.
+
+Users can submit requests sharing their travel plan.
+
+
+![Share travel schedule](image_2.png)
+
+Users can see their request status from home page.
+
 
 ![ShareRide](readme.png)
 
@@ -8,7 +15,7 @@ schedule. Users can submit a request to find a co-passenger who matches their tr
 ## Technologies
 - Python 3.10
 - Django
-- Celery (with rabbitmq)
+- Celery (with rabbitmq as broker)
 - Docker
 - HTML
 - CSS
@@ -24,7 +31,10 @@ schedule. Users can submit a request to find a co-passenger who matches their tr
     cd /path/to/ShareRide
     ```
 
-3. Configure the .env file
+3. Create a .env file.
+
+
+4. Configure the .env file by
 
 
 4. Run the application
@@ -32,4 +42,4 @@ schedule. Users can submit a request to find a co-passenger who matches their tr
     docker compose up --build
     ```
 
-5. Go to localhost:8000/signup/ for registration.
+5. Visit localhost:8000/signup/ for registration.
