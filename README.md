@@ -11,6 +11,7 @@ Users can see their request status from home page.
 
 ![ShareRide](readme.png)
 
+A background celery task runs every minute and matches users who share the same travel plan.
 
 ## Technologies
 - Python 3.10
