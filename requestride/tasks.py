@@ -27,7 +27,7 @@ def check_requests():
             destination=request.destination,
             time=request.time,
             status='pending'
-        ).exclude(user=request.user)
+        ).exclude(user=request.user).order_by('created_at')
 
         if matching_requests.exists():
             matched_request = matching_requests.first()
