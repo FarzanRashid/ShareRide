@@ -1,5 +1,5 @@
 # ShareRide
-ShareRide is a Django application which matches  users based on their travel schedule.
+ShareRide is a Django application that matches and connects users based on their travel schedules.
 
 Users submit requests sharing their travel plan.
 
